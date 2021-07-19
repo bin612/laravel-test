@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\WelcomeController;
+use App\Models\Greeting;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+//    return view('welcome');
+        return "hello world";
 });
+
+Route::get('/', [WelcomeController::class, 'index']);
+
+Route::get('create-greeting', function () {
+   $greeting = new Greeting();
+   $greeting -> body = 'Hello, World database';
+   $greeting -> save();
+});
+

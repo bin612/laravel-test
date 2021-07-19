@@ -30,4 +30,14 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'sparkpost' => [
+        'secret' => 'abcdefg',
+    ],
+
+    'bugsnag' => [
+        'key' => env('BUGSNAG_API_KEY'),
+    ],
 ];
+
+
+//TODO 컨트롤러의 코드 작성시 $bugsnag = new Bugsnag(config('service.bugsnag.key'));
