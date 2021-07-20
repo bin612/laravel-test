@@ -74,3 +74,7 @@ Route::get('users/{id}', function ($id) {
 Route::get('users/{username}', function ($username) {
 
 })->where('username', '[A-Za-z]+');
+
+Route::get('posts/{id}/{slug}', function ($id, $slug){
+
+})->where(['id' => '[0-9]+', 'slug' => '[A-Za-z]+']);
