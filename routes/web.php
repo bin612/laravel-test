@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Greeting;
+
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,3 +81,35 @@ Route::get('users/{username}', function ($username) {
 Route::get('posts/{id}/{slug}', function ($id, $slug){
 
 })->where(['id' => '[0-9]+', 'slug' => '[A-Za-z]+']);
+
+//TODO 라우트 그룹 정의하기
+Route::group(function (){
+    Route::get('hello', function () {
+        return 'Hello';
+    });
+    Route::get('world',function () {
+        return 'World';
+    });
+});
+
+//TODO MiddleWare(미들 웨어)
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    });
+    Route::get('account', function () {
+        return view('account');
+    });
+});
+
+//TODO 시간당 접속 제한하기
+Route::middleware(['throttle:uploads'])->group(function () {
+    Route::post('/photos', function () {
+       //
+    });
+});
+
+//TODO 접속 제한 규칙
+RateLimiter::for('uploads', function (Request $request) {
+   return Limit::perMinute(1000);
+});
